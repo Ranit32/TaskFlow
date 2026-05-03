@@ -6,7 +6,7 @@ const STATUS_LABELS = { todo: 'To Do', 'in-progress': 'In Progress', done: 'Done
 
 export default function TaskCard({ task, onClick, onStatusChange, canAdmin }) {
   const isOverdue = task.dueDate && isPast(new Date(task.dueDate)) && task.status !== 'done';
-  const initials = task.assignedTo?.name?.split(' ').map(n => n[0]).join('').slice(0, 2) || null;
+  const initials = task.assignedTo?.name?.split(' ')?.map(n => n[0])?.join('')?.slice(0, 2) || null;
 
   const handleStatusClick = (e, status) => {
     e.stopPropagation();

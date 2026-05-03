@@ -224,7 +224,7 @@ export default function ProjectDetail() {
                       <td><span className={`badge ${PRIORITY_MAP[task.priority]}`}>{task.priority}</span></td>
                       <td>{task.assignedTo ? <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                         <div className="user-avatar" style={{ width: 24, height: 24, fontSize: 10 }}>
-                          {task.assignedTo.name?.slice(0, 2).toUpperCase()}
+                          {task.assignedTo.name?.slice(0, 2)?.toUpperCase()}
                         </div>
                         {task.assignedTo.name}
                       </div> : <span style={{ color: 'var(--text-muted)' }}>Unassigned</span>}</td>
@@ -253,7 +253,7 @@ export default function ProjectDetail() {
           </div>
           {project?.members?.map(m => (
             <div key={m.user?._id} className="member-row">
-              <div className="user-avatar">{m.user?.name?.slice(0, 2).toUpperCase()}</div>
+              <div className="user-avatar">{m.user?.name?.slice(0, 2)?.toUpperCase()}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 600, fontSize: 14 }}>{m.user?.name}</div>
                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{m.user?.email}</div>
