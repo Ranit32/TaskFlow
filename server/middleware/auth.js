@@ -38,16 +38,29 @@ const requireAdmin = (req, res, next) => {
 // Require project-level admin (owner or admin member)
 const requireProjectAdmin = (project, userId) => {
   if (!project) return false;
-  if (project.owner.toString() === userId.toString()) return true;
-  const member = project.members.find(m => m.user.toString() === userId.toString());
+  
+  const ownerId = project.owner._id ? project.owner._id.toString() : project.owner.toString();
+  if (ownerId === userId.toString()) return true;
+  
+  const member = project.members.find(m => {
+    const mUserId = m.user._id ? m.user._id.toString() : m.user.toString();
+    return mUserId === userId.toString();
+  });
+  
   return member && member.role === 'admin';
 };
 
 // Check if user is project member
 const isProjectMember = (project, userId) => {
   if (!project) return false;
-  if (project.owner.toString() === userId.toString()) return true;
-  return project.members.some(m => m.user.toString() === userId.toString());
+  
+  const ownerId = project.owner._id ? project.owner._id.toString() : project.owner.toString();
+  if (ownerId === userId.toString()) return true;
+  
+  return project.members.some(m => {
+    const mUserId = m.user._id ? m.user._id.toString() : m.user.toString();
+    return mUserId === userId.toString();
+  });
 };
 
 module.exports = { authenticate, requireAdmin, requireProjectAdmin, isProjectMember };
